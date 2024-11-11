@@ -33,6 +33,25 @@ A Blank Document opens up into which the following source code can be typed down
 ## a)To Verify the Functionality using Test Bench
 
 ## Source Code – Using Case Statement :
+module alu_32bit_case(y,a,b,f);
+input [31:0]a;
+input [31:0]b;
+input [2:0]f;
+output reg [31:0]y;
+always@(*)
+begin
+case(f)
+3'b000:y=a&b; //AND Operation
+3'b001:y=a|b; //OR Operation
+3'b010:y=~(a&b); //NAND Operation
+3'b011:y=~(a|b); //NOR Operation
+3'b100:y=a^b; //XOR Operation
+3'b101:y=~(a^b); //XNOR Operation
+3'b110:y=~a; //NOT of a
+3'b111:y=~b; //NOT of b
+endcase
+end
+endmodule
 
 (Include program here)
 
@@ -43,6 +62,27 @@ Use Save option or Ctrl+S to save the code or click on the save option from the 
 Similarly, create your test bench using gedit <filename_tb>.v or <filename_tb>.vhdl to open a new blank document (alu_32bit_tb_case).
 
 ## Test Bench :
+module alu_32bit_tb_case;
+reg [31:0]a;
+reg [31:0]b;
+reg [2:0]f;
+wire [31:0]y;
+alu_32bit_case test2(.y(y),.a(a),.b(b),.f(f));
+initial
+begin
+a=32'h00000000;
+b=32'h10101010;
+#10 f=3'b000;
+#10 f=3'b001;
+#10 f=3'b010;
+#10 f=3'b011;
+#10 f=3'b100;
+#10 f=3'b101;
+#10 f=3'b110;
+#10 f=3'b111;
+#50 $finish;
+end
+endmodule
 
 (Include test bench program here)
 
@@ -62,6 +102,8 @@ After this you can see the window like below
 
 ### Fig 2: Invoke the Cadence Environment
 
+![Screenshot (32)](https://github.com/user-attachments/assets/ae968cce-2730-43e9-b961-e652ba74e28e)
+
 To Launch Simulation tool 
 
 •linux:/> nclaunch -new& // “-new” option is used for invoking NCVERILOG for the first time for any design 
@@ -75,11 +117,16 @@ It will invoke the nclaunch window for functional simulation we can compile,elab
 
 ### Fig 3: Setting Multi-step simulation
 
+![Screenshot (39)](https://github.com/user-attachments/assets/1cff48ae-aa92-4b18-846c-29d9813e3f26)
+
+
 Select Multiple Step and then select “Create cds.lib File” as shown in below figure 
 
 Click the cds.lib file and save the file by clicking on Save option 
 
 ### Fig 4:cds.lib file Creation
+
+![Screenshot (32)](https://github.com/user-attachments/assets/eb230d0d-0d4a-4fd8-ad9f-150d539fefd9)
 
 Save cds.lib file and select the correct option for cds.lib file format based on the HDL Language and Libraries used. 
 
@@ -102,6 +149,9 @@ Worklib is the directory where all the compiled codes are stored while Snapshot 
 To perform the function simulation, the following three steps are involved Compilation, Elaboration and Simulation. 
 
 ### Fig 6: Nclaunch Window
+
+![Screenshot (41)](https://github.com/user-attachments/assets/ec29bf81-fc0d-4a62-aec2-02eda4c9299c)
+
 
 ## Step 1: Compilation:
 
@@ -175,7 +225,11 @@ Steps for simulation – Run the simulation command with simulator options
 
 ## Fig 9: Design Browser window for simulation
 
+![Screenshot (42)](https://github.com/user-attachments/assets/b2ad16a5-e35e-4eae-be0d-d06ec6828267)
+
 ## Fig 10:Simulation Waveform Window
+
+![Screenshot (43)](https://github.com/user-attachments/assets/2ffb92e7-1393-4720-a62e-00d313a8cbbe)
 
 ## Fig 11:Simulation Waveform Window
 
